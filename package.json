@@ -1,6 +1,6 @@
 {
   "name": "vite-dts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Blazing fast .d.ts modules for libraries",
   "author": "Alec Larson",
   "license": "MIT",
