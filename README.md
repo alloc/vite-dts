@@ -10,10 +10,10 @@ Generate a `.d.ts` module for both `.es` and `.cjs` entry points when using Vite
 
 ### FAQ
 
-- **Do I have to publish my `src` folder for this to work?**
+- **Do I have to publish my `src` folder for this to work?**  
   Yes. For libraries, you generally need to do that anyway, if you publish sourcemaps (which you should).
 
-- **Will this bundle my types?**
+- **Will this bundle my types?**  
   No. It merely re-exports from your library's entry module.
 
 &nbsp;
