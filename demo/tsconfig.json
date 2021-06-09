@@ -1,0 +1,10 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["esnext", "dom"],
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "target": "esnext"
+  }
+}

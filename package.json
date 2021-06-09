@@ -1,0 +1,45 @@
+{
+  "name": "vite-dts",
+  "version": "1.0.0",
+  "description": "Blazing fast .d.ts modules for libraries",
+  "author": "Alec Larson",
+  "license": "MIT",
+  "repository": "alloc/vite-dts",
+  "main": "dist/cjs/plugin.js",
+  "module": "dist/esm/plugin.js",
+  "exports": {
+    "import": "./dist/esm/plugin.js",
+    "require": "./dist/cjs/plugin.js"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc -p . --outDir dist/esm && tsc -p . --module commonjs --outDir dist/cjs",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "vite": ">2.0.0-0"
+  },
+  "devDependencies": {
+    "@alloc/fast-rimraf": "^1.0.8",
+    "@alloc/prettier-config": "^1.0.0",
+    "@types/node": "^14.14.20",
+    "prettier": "^2.0.5",
+    "typescript": "^4.0.0",
+    "vite": "latest"
+  },
+  "prettier": "@alloc/prettier-config",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "typescript",
+    "types",
+    "lib",
+    "dts"
+  ],
+  "dependencies": {
+    "load-json-file": "^6.2.0"
+  }
+}

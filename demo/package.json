@@ -1,0 +1,24 @@
+{
+  "name": "vite-lib",
+  "version": "1.0.0",
+  "main": "dist/vite-lib.cjs.js",
+  "module": "dist/vite-lib.es.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
+    "vite": "link:../node_modules/vite",
+    "vite-dts": "link:.."
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
