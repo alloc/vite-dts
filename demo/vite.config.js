@@ -11,12 +11,16 @@ export default defineConfig({
     rollupOptions: {
       external: ['react'],
       output: {
+        // Since we publish our ./src folder, there's no point
+        // in bloating sourcemaps with another copy of it.
         sourcemapExcludeSources: true,
       },
     },
-    minify: false,
     sourcemap: true,
+    // Reduce bloat from legacy polyfills.
     target: 'esnext',
+    // Leave minification up to applications.
+    minify: false,
   },
   plugins: [dts()],
 })

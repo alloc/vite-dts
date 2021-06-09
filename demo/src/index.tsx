@@ -17,7 +17,6 @@ export function Box({ as: View = 'div', children, ...props }: Props) {
     }
   }
 
-  console.log({ props, style, styleKeys })
   return (
     <View {...props} style={style}>
       {children}
