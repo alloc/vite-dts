@@ -10,6 +10,9 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['react'],
+      output: {
+        sourcemapExcludeSources: true,
+      },
     },
     minify: false,
     sourcemap: true,
