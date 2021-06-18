@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite'
 import loadJSON from 'load-json-file'
 import * as path from 'path'
+import * as fs from 'fs'
 
 export default function dts(): Plugin {
   return {
@@ -30,13 +31,22 @@ export default function dts(): Plugin {
         )
       }
 
+      const entryPath = path.resolve(config.root, entry)
+      const entryImportPath = path.relative(
+        path.resolve(config.root, outDir),
+        entryPath.replace(/\.tsx?$/, '')
+      )
+
+      const entryImpl = fs.readFileSync(entryPath, 'utf8')
+      const hasDefaultExport =
+        /^(export default |export \{[^}]+? as default\s*[,}])/m.test(entryImpl)
+
+      const dtsModule =
+        `export * from "${entryImportPath}"` +
+        (hasDefaultExport ? `\nexport {default} from "${entryImportPath}"` : ``)
+
       const cjsModulePath = path.relative(outDir, pkg.main)
       const esModulePath = path.relative(outDir, pkg.module)
-
-      const dtsModule = `export * from "${path.relative(
-        path.resolve(config.root, outDir),
-        path.resolve(config.root, entry).replace(/\.tsx?$/, '')
-      )}"`
 
       this.generateBundle = function ({ entryFileNames }) {
         if (entryFileNames == cjsModulePath) {
