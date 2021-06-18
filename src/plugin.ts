@@ -12,21 +12,22 @@ export default function dts(): Plugin {
 
       const { entry, formats = ['es'] } = config.build.lib || {}
       if (!entry) {
-        logger.warn(
+        return logger.warn(
           `[vite-dts] Expected "build.lib.entry" to exist in vite config`
         )
-        return
       }
 
       const pkg = await loadJSON<any>(path.join(config.root, 'package.json'))
 
       if (!pkg.main && formats.includes('cjs')) {
-        logger.warn(`[vite-dts] Expected "main" to exist in package.json`)
-        return
+        return logger.warn(
+          `[vite-dts] Expected "main" to exist in package.json`
+        )
       }
       if (!pkg.module && formats.includes('es')) {
-        logger.warn(`[vite-dts] Expected "module" to exist in package.json`)
-        return
+        return logger.warn(
+          `[vite-dts] Expected "module" to exist in package.json`
+        )
       }
 
       const cjsModulePath = path.relative(outDir, pkg.main)
