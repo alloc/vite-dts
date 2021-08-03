@@ -37,13 +37,15 @@ export default function dts(): Plugin {
         entryPath.replace(/\.tsx?$/, '')
       )
 
+      const posixEntryImportPath = entryImportPath.split(path.sep).join(path.posix.sep)
+
       const entryImpl = fs.readFileSync(entryPath, 'utf8')
       const hasDefaultExport =
         /^(export default |export \{[^}]+? as default\s*[,}])/m.test(entryImpl)
 
       const dtsModule =
-        `export * from "${entryImportPath}"` +
-        (hasDefaultExport ? `\nexport {default} from "${entryImportPath}"` : ``)
+        `export * from "${posixEntryImportPath}"` +
+        (hasDefaultExport ? `\nexport {default} from "${posixEntryImportPath}"` : ``)
 
       const cjsModulePath = path.relative(outDir, pkg.main)
       const esModulePath = path.relative(outDir, pkg.module)
