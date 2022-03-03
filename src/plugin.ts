@@ -3,7 +3,15 @@ import loadJSON from 'load-json-file'
 import * as path from 'path'
 import * as fs from 'fs'
 
-export default function dts(): Plugin {
+export interface DtsPluginArgs {
+  cjsModulePath?: string;
+  esModulePath?: string;
+}
+
+export default function dts({
+  cjsModulePath,
+  esModulePath
+}: DtsPluginArgs = {}): Plugin {
   return {
     name: 'vite:dts',
     apply: 'build',
@@ -47,8 +55,8 @@ export default function dts(): Plugin {
         `export * from "${posixEntryImportPath}"` +
         (hasDefaultExport ? `\nexport {default} from "${posixEntryImportPath}"` : ``)
 
-      const cjsModulePath = path.relative(outDir, pkg.main)
-      const esModulePath = path.relative(outDir, pkg.module)
+      cjsModulePath = cjsModulePath ?? path.relative(outDir, pkg.main)
+      esModulePath = esModulePath ?? path.relative(outDir, pkg.module)
 
       this.generateBundle = function ({ entryFileNames }) {
         if (entryFileNames == cjsModulePath) {

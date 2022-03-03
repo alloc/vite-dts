@@ -29,3 +29,18 @@ export default {
   plugins: [dts()],
 }
 ```
+
+#### Custom `d.ts` locations
+
+By default, the output `d.ts` files will be based on the `main` and `module` entries of `package.json`. To use alternate paths, supply the `cjsModulePath` and `esModulePath` arguments to `dts()`.
+
+```ts
+import dts from 'vite-dts'
+
+export default {
+  plugins: [dts({
+    cjsModulePath: 'dist/foo/bar.umd.d.ts',
+    esModulePath: 'dist/foo/bar.es.d.ts'
+  })],
+}
+```
