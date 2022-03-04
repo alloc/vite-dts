@@ -50,17 +50,16 @@ export default function dts(): Plugin {
       const cjsModulePath = path.relative(outDir, pkg.main)
       const esModulePath = path.relative(outDir, pkg.module)
 
+      const exports = Object.keys(pkg.exports || {})
+      const requirePaths = exports.map(k => path.relative(outDir, pkg.exports[k].require)).filter(p => !!p)
+      const importPaths = exports.map(k => path.relative(outDir, pkg.exports[k].import)).filter(p => !!p)
+
       this.generateBundle = function ({ entryFileNames }) {
-        if (entryFileNames == cjsModulePath) {
+        const name = `${entryFileNames}`;
+        if (requirePaths.includes(name) || importPaths.includes(name) || name == cjsModulePath || name == esModulePath) {
           this.emitFile({
             type: 'asset',
-            fileName: cjsModulePath.replace(/\.js$/, '.d.ts'),
-            source: dtsModule,
-          })
-        } else if (entryFileNames == esModulePath) {
-          this.emitFile({
-            type: 'asset',
-            fileName: esModulePath.replace(/\.js$/, '.d.ts'),
+            fileName: name.replace(/\.js$/, '.d.ts'),
             source: dtsModule,
           })
         }
