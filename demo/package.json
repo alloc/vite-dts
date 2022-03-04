@@ -3,13 +3,23 @@
   "version": "1.0.0",
   "main": "dist/vite-lib.cjs.js",
   "module": "dist/vite-lib.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vite-lib.es.js",
+      "require": "./dist/vite-lib.cjs.js"
+    },
+    "./nested/": {
+      "import": "./dist/nested/vite-lib.es.js",
+      "require": "./dist/nested/vite-lib.cjs.js"
+    }
+  },
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build && vite build -c vite.config.nested.js"
   },
   "devDependencies": {
     "@types/react": "^17.0.11",
