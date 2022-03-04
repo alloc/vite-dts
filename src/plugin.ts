@@ -60,7 +60,10 @@ export default function dts(): Plugin {
         } else if (entryFileNames == esModulePath) {
           this.emitFile({
             type: 'asset',
-            fileName: esModulePath.replace(/\.js$/, '.d.ts'),
+            fileName:
+              path.extname(esModulePath) == '.mjs'
+                ? esModulePath + '.d.ts'
+                : esModulePath.replace(/\.js$/, '.d.ts'),
             source: dtsModule,
           })
         }
